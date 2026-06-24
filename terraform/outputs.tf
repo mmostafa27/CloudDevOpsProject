@@ -13,3 +13,7 @@ output "private_subnet_ids" {
 output "nat_gateway_id" {
   value = module.network.nat_gateway_id
 }
+
+output "jenkins_public_ip" {
+  value = module.server.jenkins_public_ip
+}
