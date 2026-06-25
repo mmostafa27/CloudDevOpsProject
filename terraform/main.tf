@@ -16,3 +16,12 @@ module "server" {
   key_name         = "ivolve-jenkins-key"
   instance_type    = "t3.micro"
 }
+
+module "eks" {
+  source = "./modules/eks"
+
+  project_name        = "ivolve"
+  private_subnet_ids  = module.network.private_subnet_ids
+  eks_version         = "1.33"
+  node_instance_types = ["t3.micro"]
+}
