@@ -25,3 +25,11 @@ module "eks" {
   eks_version         = "1.33"
   node_instance_types = ["t3.micro"]
 }
+
+module "ecr" {
+  source = "./modules/ecr"
+
+  project_name = "ivolve"
+  repository_name = "ivolve-app"
+  
+}
