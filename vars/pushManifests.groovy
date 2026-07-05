@@ -11,7 +11,7 @@ def call(String repoUrl) {
             git config user.name "Jenkins"
             git add kubernetes/deployment.yml
             git commit -m "Update image tag to build ${BUILD_NUMBER}"
-            git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/mmostafa27/CloudDevOpsProject.git main
+            git push https://\${GIT_USERNAME}:\${GIT_PASSWORD}@github.com/mmostafa27/CloudDevOpsProject.git HEAD:refs/heads/main
         """
     }
 }
