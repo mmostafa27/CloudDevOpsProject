@@ -6,18 +6,18 @@ An end-to-end DevOps project that takes a small Flask web app from source code t
 
 ```mermaid
 flowchart LR
-    Dev[Developer] -->|git push| GH[GitHub repo]
-    GH --> J[Jenkins on EC2]
-    subgraph Pipeline
+    Dev["Developer"] -->|"git push"| GH["GitHub repo"]
+    GH --> J["Jenkins on EC2"]
+    subgraph Pipeline["Jenkins pipeline"]
         direction LR
-        B[Build Image] --> S[Scan Image<br/>Trivy] --> P[Push Image] --> D[Delete Image Locally] --> U[Update Manifests] --> PM[Push Manifests]
+        B["1 Build Image"] --> S["2 Scan Image with Trivy"] --> P["3 Push Image"] --> D["4 Delete Image Locally"] --> U["5 Update Manifests"] --> PM["6 Push Manifests"]
     end
     J --> B
-    P -->|tag = build number| ECR[(Amazon ECR)]
-    PM -->|commit deployment.yml| GH
-    ECR -->|image pull| EKS
-    subgraph EKS[Amazon EKS - 2 worker nodes]
-        ING[NGINX Ingress] --> SVC[Service :80] --> PODS[2 x ivolve-app pods :5000]
+    P -->|"tag is build number"| ECR[("Amazon ECR")]
+    PM -->|"commit deployment.yml"| GH
+    ECR -->|"image pull"| PODS
+    subgraph EKS["Amazon EKS with 2 worker nodes"]
+        ING["NGINX Ingress"] --> SVC["Service port 80"] --> PODS["2 ivolve-app pods port 5000"]
     end
 ```
 
